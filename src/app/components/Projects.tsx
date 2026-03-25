@@ -1083,43 +1083,41 @@ export default function Projects() {
         </div>
 
         {/* Navigation */}
-        <div className="flex items-center justify-between mt-2">
+        <div className="flex items-center justify-between mt-2 gap-2">
           {/* Prev */}
           <button
             onClick={() => go(-1)}
             disabled={active === 0}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-200 text-slate-500 hover:border-emerald-400 hover:text-emerald-700 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+            className="flex items-center gap-2 px-3 sm:px-5 py-2.5 rounded-full border border-slate-200 text-slate-500 hover:border-emerald-400 hover:text-emerald-700 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer flex-shrink-0"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 18 9 12 15 6"/>
             </svg>
-            Anterior
+            <span className="hidden sm:inline">Anterior</span>
           </button>
 
           {/* Dots */}
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-1.5 sm:gap-2 items-center flex-wrap justify-center">
             {projects.map((_, i) => (
               <button
                 key={i}
                 onClick={() => { setDir(i > active ? 1 : -1); setActive(i); }}
-                className={`rounded-full transition-all duration-200 cursor-pointer ${i === active ? "w-6 h-2 bg-emerald-500" : "w-2 h-2 bg-slate-300 hover:bg-slate-400"}`}
+                className={`rounded-full transition-all duration-200 cursor-pointer ${i === active ? "w-5 sm:w-6 h-2 bg-emerald-500" : "w-2 h-2 bg-slate-300 hover:bg-slate-400"}`}
               />
             ))}
           </div>
 
-          {/* Right side: next + optional contact */}
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => go(1)}
-              disabled={active === total - 1}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-200 text-slate-500 hover:border-emerald-400 hover:text-emerald-700 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
-            >
-              Siguiente
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </button>
-          </div>
+          {/* Right side: next */}
+          <button
+            onClick={() => go(1)}
+            disabled={active === total - 1}
+            className="flex items-center gap-2 px-3 sm:px-5 py-2.5 rounded-full border border-slate-200 text-slate-500 hover:border-emerald-400 hover:text-emerald-700 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer flex-shrink-0"
+          >
+            <span className="hidden sm:inline">Siguiente</span>
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
         </div>
       </div>
     </section>
