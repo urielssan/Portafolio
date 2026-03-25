@@ -2,25 +2,225 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f172a;
+  --green: #2b3d07;
+  --blue: #3b82f6;
+  --green-dark: #182205;
+  --blue-dark: #1d4ed8;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Satoshi", var(--font-geist-mono), sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-emerald-50: #f2f6e8;
+  --color-emerald-100: #dfe9c5;
+  --color-emerald-200: #bfd490;
+  --color-emerald-300: #96b852;
+  --color-emerald-400: #6d9228;
+  --color-emerald-500: #2b3d07;
+  --color-emerald-600: #1f2d05;
+  --color-emerald-700: #182205;
+  --color-emerald-800: #101703;
+  --color-emerald-900: #080c01;
+  --color-emerald-950: #040601;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-mono), monospace;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Satoshi", sans-serif;
+}
+
+html, body {
+  scroll-snap-type: none !important;
+  scroll-behavior: smooth;
+}
+
+* {
+  scroll-snap-align: none !important;
+  scroll-snap-stop: unset !important;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, var(--green) 0%, var(--blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated gradient border */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-border {
+  background: linear-gradient(135deg, var(--green), var(--blue), var(--green));
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Pulse glow */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(43, 61, 7, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.5);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Typewriter cursor */
+@keyframes blink {
+
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.cursor {
+  animation: blink 1s step-end infinite;
+}
+
+/* Scroll indicator */
+@keyframes scroll-down {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+}
+
+.scroll-indicator {
+  animation: scroll-down 1.5s ease-in-out infinite;
+}
+
+/* Grid background pattern (Hero) */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(43, 61, 7, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* ── Leaf border decoration ──────────────────────────────────────────────────
+   Hoja SVG repetida como patrón, visible SOLO en los bordes de cada sección.
+   El centro queda completamente limpio para los textos.
+   Funciona con cualquier background-color de la sección.
+   ──────────────────────────────────────────────────────────────────────────── */
+.leaf-border {
+  position: relative;
+}
+
+.leaf-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Hoja SVG: contorno + nervio central, color verde oscuro del portfolio */
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='55'%20height='55'%3E%3Cpath%20d='M27.5,5C16,5,8,15,8,27C8,38,16,47,27.5,50C39,47,47,38,47,27C47,15,39,5,27.5,5Z'%20fill='none'%20stroke='%232b3d07'%20stroke-width='.9'%20opacity='.22'/%3E%3Cline%20x1='27.5'%20y1='5'%20x2='27.5'%20y2='50'%20stroke='%232b3d07'%20stroke-width='.5'%20opacity='.15'/%3E%3C/svg%3E");
+  background-size: 22px 28px;
+  /* Máscara: borde visible, centro transparente (texto siempre legible) */
+  -webkit-mask-image:
+    linear-gradient(to right, black 0px, transparent 150px, transparent calc(100% - 150px), black 100%),
+    linear-gradient(to bottom, black 0px, transparent 150px, transparent calc(100% - 150px), black 100%);
+  mask-image:
+    linear-gradient(to right, black 0px, transparent 150px, transparent calc(100% - 150px), black 100%),
+    linear-gradient(to bottom, black 0px, transparent 150px, transparent calc(100% - 150px), black 100%);
+  -webkit-mask-composite: source-over;
+  mask-composite: add;
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Tag hover effect */
+.tech-tag {
+  transition: all 0.2s ease;
+}
+
+.tech-tag:hover {
+  transform: translateY(-2px);
+}
+
+/* Navbar blur */
+.navbar-blur {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--green), var(--blue));
+  border-radius: 3px;
 }
